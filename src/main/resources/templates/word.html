@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>word editing</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet" media="all" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<!-- navigation menu -->
+<div class="two-half-box">
+  <div class="left-half-box">
+    <div th:include="components/miscellaneous :: site"></div>
+  </div>
+  <div class="right-half-box">
+    <div th:include="components/miscellaneous :: menu"></div>
+  </div>
+</div>
+
+<!-- header -->
+<div class="full-box">
+  <div class="page-explanation">
+    <p>
+      <b>Word:</b> <span th:if="${browsing}">Browsing Word.(Read Only)</span>
+      <span th:if="${editing}">Rewriting Word.(Editable)</span>
+      <span class="confirmation"
+            th:if="${confirmation}">Delete, are you sure you want to do this?</span>
+      <span class="confirmation"
+            th:if="${referred}">Not Delete. this word referred from 'Term' objects.</span>
+    </p>
+  </div>
+</div>
+
+<!-- contents -->
+<div class="full-box">
+  <div class="browsing" th:if="${browsing} or ${referred}">
+    <form action="#" th:action="@{/words/word/edit/{id}(id=${word.id})}" th:object="${word}"
+          th:method="POST">
+      <div th:include="components/contents :: wordContent"></div>
+      <span class="confirmation" th:if="${browsing}">
+        <button type="submit" name="edit">Edit</button>
+        <button type="submit" name="confirm">Remove</button>
+      </span>
+      <span class="confirmation" th:if="${referred}">
+        <button type="submit" name="goback">I Understand.</button>
+      </span>
+    </form>
+  </div>
+  <div class="browsing" th:if="${confirmation}">
+    <form action="#" th:action="@{/words/word/edit/{id}(id=${word.id})}" th:object="${word}"
+          th:method="POST">
+      <div th:include="components/contents :: wordContent"></div>
+      <button type="submit" name="remove">Yes. I'm sure.</button>
+      <button type="submit" name="goback">No.</button>
+    </form>
+  </div>
+  <div class="editable" th:if="${editing}">
+    <form action="#" th:action="@{/words/word/update/{id}(id=${word.id})}" th:object="${word}"
+          th:method="POST">
+      <div th:include="components/contents :: wordContent"></div>
+      <button type="submit" name="save">Save</button>
+      <button type="submit" name="cancel">Cancel</button>
+    </form>
+  </div>
+</div>
+
+<!-- footer -->
+<div class="full-box">
+  <div th:include="components/miscellaneous :: copyright"></div>
+</div>
+</body>
+</html>

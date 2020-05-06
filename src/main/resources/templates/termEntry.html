@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>term register</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<!-- navigation menu -->
+<div class="two-half-box">
+  <div class="left-half-box">
+    <div th:include="components/miscellaneous :: site"></div>
+  </div>
+  <div class="right-half-box">
+    <div th:include="components/miscellaneous :: menu"></div>
+  </div>
+</div>
+
+<!-- header -->
+<div class="full-box">
+  <div id="page-explanation">
+    <p>
+      <b>Term:</b> Entry New Topic.
+    </p>
+    <span class="confirmation" th:if="${exists}">Oops! That term already exists.</span>
+  </div>
+</div>
+
+<!-- content -->
+<div class="full-box">
+  <form action="#" th:action="@{/words/term/register}" th:object="${termEntryForm}" method="post">
+    <p>
+      <label class="control-label" for="contextId">Context:</label>
+      <select id="contextId" name="contextId" th:field="*{contextId}">
+        <option th:each="context : ${contexts}" th:value="${context.id}"
+                th:selected="(${context.id} == *{contextId})" th:inline="text">
+          [[${context.currentPathName}]]
+        </option>
+      </select> <span class="error-massage" th:errors="*{contextId}"></span>
+    </p>
+    <p>
+      <label class="control-label" for="name">Name:</label>
+      <span class="error-massage" th:errors="*{name}"></span><br/>
+      <input id="name" type="text" size="60" value="" placeholder="*required*" th:field="*{name}"/>
+    </p>
+    <p>
+      <label class="control-label" for="reading">Reading:</label>
+      <span class="error-massage" th:errors="*{reading}"></span><br/>
+      <input type="text" id="reading" size="60" value="" placeholder="" th:field="*{reading}"/>
+    </p>
+    <p>
+      <label class="control-label" for="translation">Translation:</label><br/>
+      <input id="translation" type="submit" name="translate" value="Translate"/>
+      <input type="text" size="60" value="" placeholder="Translate from Name."
+             th:field="*{translation}"/>
+      <input type="hidden" size="10" value="" placeholder="" th:field="*{wordIds}"/>
+      |<a href="wordList.html" th:href="@{/words/word/entry}" title="entry">Word</a>|
+    </p>
+    <p>
+      <label class="control-label" for="explanation">Explanation:</label>
+      <span class="error-massage" th:errors="*{explanation}"></span>
+      <br/>
+      <textarea id="explanation" rows="4" cols="100" class="form-control" name="explanation"
+                placeholder="" th:field="*{explanation}"></textarea>
+    </p>
+    <p>
+      <label class="control-label" for="resource">Resource:(Paragraph No.)</label><br/>
+      <input type="text" id="resource" size="60" placeholder="Comma Separate"
+             th:field="*{resource}"/>
+    </p>
+    <p>
+      <input type="submit" value="Register"/> <input type="reset" value="Reset"/>
+    </p>
+  </form>
+</div>
+
+<!-- footer -->
+<div class="full-box">
+  <div th:include="components/miscellaneous :: copyright"></div>
+</div>
+</body>
+</html>
+

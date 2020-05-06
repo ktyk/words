@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>top page</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<!-- navigation menu -->
+<div class="two-half-box">
+  <div class="left-half-box">
+    <div th:include="components/miscellaneous :: site"></div>
+  </div>
+  <div class="right-half-box">
+    <div th:include="components/miscellaneous :: menu"></div>
+  </div>
+</div>
+
+<!-- header -->
+<div class="full-box">
+  <div class="top-page-explanation">
+    <h1></h1>
+  </div>
+</div>
+
+<!-- contents -->
+<div class="full-box">
+  <div class="top-page-contents" id="top-page">
+    <a><b>feature</b></a>
+    <ul>
+      <li>辞書(<a th:href="@{/words/term/list}">dictionary</a>)：語彙(vocabulary)の定義と検索。
+      </li>
+      <li>背景(<a th:href="@{/words/context/list}">context</a>)：語彙の背景を階層化された文脈(context)として表現。
+      </li>
+      <li>草稿(<a th:href="@{/words/paragraph/list}">draft</a>)：段落(paragraph)として文章を記録。語彙の体系とは独立。
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="full-box">
+  <div class="top-page-contents" id="top-page">
+    <a><b>component</b></a>
+    <ul>
+      <li>Term(用語)：概念の単位。起因となる直接の文脈を１つだけ持つ。</li>
+      <li>Word(単語)：用語名称を構成する単位。変換(英語等)が割り当てられる単位。</li>
+      <li>Context(文脈)：背景を分類し階層化させる単位。</li>
+      <li>Paragraph(段落)：ノートあるいは何らかの要約や抜粋。脚注として用語と紐付けが可能。</li>
+    </ul>
+  </div>
+</div>
+<div class="full-box">
+  <div class="top-page-contents" id="top-page">
+    <a><b>concept</b></a>
+    <ul>
+      <li>用語化の対象(model)を含む素材(resource)が、任意の文の集まりとして段落(paragraph)になる。【言語による表現】</li>
+      <li>用語(term)として取り出された概念に文脈(context)を持たせる。文脈が異なれば意味は異なる。【階層化された辞書】</li>
+      <li>用語の表記は単語(word)で構成される。単語自身には意味を持たせない。【表記と意味の分離】</li>
+      <li>英語等への変換は単語単位で行う。また、それらを合成して新たな表記を作ることが出来る。【単語の変換と表記の合成】</li>
+      <li>文脈が決定される(＝contextを特定する)と、ひとつの背景をもった世界が形成される。【共通認識と可読性】</li>
+      <li>構成要素(component)の関連を継続的に変化させていく。例：paragraph->context->term(word)->paragraph【実践と拡張】</li>
+    </ul>
+  </div>
+</div>
+<div class="full-box">
+  <ul>
+  </ul>
+</div>
+<!-- Footer -->
+<div class="full-box">
+  <div th:include="components/miscellaneous :: copyright"></div>
+</div>
+</body>
+</html>

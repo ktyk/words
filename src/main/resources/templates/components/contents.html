@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>parts</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+<!-- term -->
+<div th:fragment="termContent">
+  <p>
+    <label class="control-label" for="termContext">Context:</label>
+    <select name="contextId" th:field="*{contextId}" th:if="${editing}">
+      <option th:each="context : ${contexts}" th:value="${context.id}"
+              th:selected="(${context.id} == *{contextId})" th:inline="text"
+              th:disabled="${browsing}">[[${context.currentPathName}]]
+      </option>
+    </select>
+    <input type="text" id="termContext" size="60" th:field="*{context.currentPathName}"
+           th:if="${browsing}"/>
+  </p>
+  <p>
+    <label class="control-label" for="termName">Name:</label>
+    <input type="text" id="termName" size="60" th:field="*{name}" th:readonly="${browsing}"/>
+  </p>
+  <p>
+    <label class="control-label" for="termReading">Reading:</label>
+    <input type="text" id="termReading" size="60" th:field="*{reading}" th:readonly="${browsing}"/>
+  </p>
+  <p>
+    <label class="control-label" for="translate">Translation:</label>
+    <br th:if="${editing}"/>
+    <input type="submit" name="translate" value="Translate" th:if="${editing}"/>
+    <input type="text" id="translate" size="60" value="" placeholder="" th:field="*{translation}"
+           th:disabled="${browsing}"/>
+    <span th:if="${editing}">
+                |<a href="wordList.html" th:href="@{/words/word/entry}" title="entry">Word</a>|
+    </span>
+    <input type="hidden" size="10" value="" placeholder="" th:field="*{wordIds}"/>
+  </p>
+  <p>
+    <label class="control-label" for="termExplanation">Explanation: </label><br/>
+    <textarea rows="4" cols="100" class="form-control" id="termExplanation" name="explanation"
+              th:field="*{explanation}" th:readonly="${browsing}"></textarea>
+  </p>
+  <p>
+    <label class="control-label">Resource:(Paragraph No.)</label><br/>
+    <input type="text" id="explanation" size="60" placeholder="" th:field="*{resource}"
+           th:readonly="${browsing}"/>
+  </p>
+</div>
+
+<!-- word -->
+<div th:fragment="wordContent">
+  <p>
+    <label class="control-label" for="wordContext">Context:</label>
+    <select name="contextId" th:field="*{contextId}" th:if="${editing}">
+      <option th:each="context : ${contexts}" th:value="${context.id}"
+              th:selected="(${context.id} == *{contextId})" th:inline="text"
+              th:disabled="${browsing}">[[${context.currentPathName}]]
+      </option>
+    </select>
+    <input type="text" id="wordContext" size="60" th:field="*{context.currentPathName}"
+           th:if="${browsing}"/>
+  </p>
+  <p>
+    <label class="control-label" for="wordNotation">Notation:</label>
+    <input type="text" id="wordNotation" size="60" th:field="*{notation}"
+           th:readonly="${browsing}"/>
+  </p>
+  <p>
+    <label class="control-label" for="wordReading">Reading:</label>
+    <input type="text" id="wordReading" size="60" th:field="*{reading}" th:readonly="${browsing}"/>
+  </p>
+  <p>
+    <label class="control-label" for="wordConversion">Conversion:</label>
+    <input type="text" id="wordConversion" size="60" th:field="*{conversion}"
+           th:readonly="${browsing}"/>
+  </p>
+  <p>
+    <label class="control-label" for="wordAbbreviation">Abbreviation:</label>
+    <input type="text" id="wordAbbreviation" size="60" th:field="*{abbreviation}"
+           th:readonly="${browsing}"/>
+  </p>
+  <p>
+    <label class="control-label" for="wordNote">Note:</label><br/>
+    <input type="text" id="wordNote" size="60" th:field="*{note}" th:readonly="${browsing}"/>
+  </p>
+</div>
+
+<!-- context -->
+<div th:fragment="contextContent">
+  <p>
+    <label class="control-label" for="contextName">Name:</label>
+    <input type="text" id="contextName" size="60" th:field="*{name}" th:readonly="${browsing}"
+           th:errorclass="fieldError"/>
+  </p>
+  <p>
+    <label class="control-label" for="contextPath" th:if="${editing}">Path:(unchangeable)</label>
+    <label class="control-label" for="contextPath" th:if="!${editing}">Path:</label>
+    <input type="text" id="contextPath" size="60" th:field="*{currentPathName}"
+           th:readonly='readonly'/>
+  </p>
+  <p>
+    <label class="control-label" for="contextExplanation">Explanation:</label><br/>
+    <textarea rows="4" cols="100" class="form-control" id="contextExplanation" name="explanation"
+              th:field="*{explanation}" th:readonly="${browsing}"></textarea>
+  </p>
+</div>
+
+<!-- paragraph -->
+<div th:fragment="paragraphContent">
+  <p>
+    <label class="control-label" for="paragraphTitle">Title:</label><br/>
+    <input type="text" id="paragraphTitle" size="60" th:field="*{title}" th:readonly="${browsing}"/>
+  </p>
+  <p>
+    <label class="control-label" for="paragraphText">Text:</label><br/>
+    <textarea rows="8" cols="100" class="form-control" id="paragraphText" name="text"
+              th:field="*{text}" th:readonly="${browsing}"></textarea>
+  </p>
+  <p>
+    <label class="control-label" for="paragraphRemarks">Remarks:</label><br/>
+    <input type="text" id="paragraphRemarks" size="60" th:field="*{remarks}"
+           th:readonly="${browsing}"/>
+  </p>
+  <div class="footnotes" th:readonly="${browsing}">
+    <label class="control-label" for="paragraphFootnotes" th:if="${browsing}">Footnotes:</label>
+    <table id="paragraphFootnotes" th:inline="text">
+      <tbody>
+      <tr th:each="term : ${glossary}">
+        <td><a href="term.html" th:href="@{/words/term/read/{id}(id=${term.id})}"
+               th:text="${term.name}">name</a></td>
+        <td th:text="${term.context.currentPathName}">contextName</td>
+      </tr>
+      <tr></tr>
+      </tbody>
+    </table>
+  </div>
+  <br/>
+</div>
+</body>
+</html>
+
+

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>context list</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+
+<body>
+<!-- navigation menu -->
+<div class="two-half-box">
+  <div class="left-half-box">
+    <div th:include="components/miscellaneous :: site"></div>
+  </div>
+  <div class="right-half-box">
+    <div th:include="components/miscellaneous :: menu"></div>
+  </div>
+</div>
+
+<!-- header -->
+<div class="full-box">
+  <div class="page-explanation">
+    <p>
+      <b>Context:</b> List of Entry Contexts.
+    </p>
+  </div>
+</div>
+
+<!-- contents -->
+<div class="full-box">
+  <div class="text-search">
+    <p></p>
+    <form action="#" th:action="@{/words/context/search}" th:object="${textSearchForm}"
+          method="post">
+      <input type="submit" value="Search"/>
+      <input type="text" size="60" placeholder="" th:field="*{searching}"/>
+    </form>
+  </div>
+</div>
+<div class="full-box">
+  <div class="search-result-list ">
+    <table>
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>name</th>
+        <th>parent</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="context, iterStat : ${contexts}">
+        <td><a href="context.html" th:href="@{/words/context/read/{id}(id=${context.id})}"
+               th:class="${iterStat.odd}? 'odd' : 'even'" th:text="${context.id}">id</a></td>
+        <td th:class="${iterStat.odd}? 'odd' : 'even'" th:text="${context.name}">name</td>
+        <td th:class="${iterStat.odd}? 'odd' : 'even'" th:text="${context.parentName}">
+          ${context.parentName}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- footer -->
+<div class="full-box">
+  <div th:include="components/miscellaneous :: copyright"></div>
+</div>
+
+</body>
+</html>

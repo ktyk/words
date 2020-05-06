@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>parts</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<!--site -->
+<div th:fragment="site">
+  <div class="site">
+    <h1>
+      <a title="Return to Top page" href="words.html" th:href="@{/words}">Words</a>
+    </h1>
+    <span class="phrase" title="Across The Universe / J.Lennon">are flowing out like endless rain into a paper cup.</span>
+  </div>
+</div>
+
+<!-- copyright -->
+<div th:fragment="copyright">
+  <div class="copyright">
+    <p>
+      <br/>Copyright 2020 &copy;Planet Earth
+    </p>
+  </div>
+</div>
+
+<!-- menu -->
+<div th:fragment="menu">
+  <nav class="menu">
+    <ul>
+      <li title="Select one operation below"><span class="bar">|</span>Dictionary
+        <nav class="sub">
+          <ul>
+            <li>
+              <a href="termEntry.html" th:href="@{/words/term/entry}"
+                 title="Create new topic">new</a></li>
+            <li>
+              <a href="termList.html" th:href="@{/words/term/list}" title="Display registered list">/list</a>
+            </li>
+            <li class="last">
+              <a href="wordList.html" th:href="@{/words/word/list}" title="Display registered list">/word</a>
+            </li>
+          </ul>
+        </nav>
+      </li>
+      <li title="Select one operation below"><span class="bar">|</span>Context
+        <nav class="sub">
+          <ul>
+            <li>
+              <a href="contextEntry.html" th:href="@{/words/context/entry}"
+                 title="Create new topic">new</a>
+            </li>
+            <li class="last">
+              <a href="contextList.html" th:href="@{/words/context/list}"
+                 title="Display registered list">/list</a>
+            </li>
+          </ul>
+        </nav>
+      </li>
+      <li title="Select one operation below"><span class="bar">|</span>Draft
+        <nav class="sub">
+          <ul>
+            <li>
+              <a href="paragraphEntry.html" th:href="@{/words/paragraph/entry}"
+                 title="Create new topic">new</a>
+            </li>
+            <li class="last">
+              <a href="paragraphList.html" th:href="@{/words/paragraph/list}"
+                 title="Display registered list">/list</a>
+            </li>
+          </ul>
+        </nav>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+</body>
+</html>
+
+

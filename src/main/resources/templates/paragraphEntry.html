@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>paragraph register</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<!-- navigation menu -->
+<div class="two-half-box">
+  <div class="left-half-box">
+    <div th:include="components/miscellaneous :: site"></div>
+  </div>
+  <div class="right-half-box">
+    <div th:include="components/miscellaneous :: menu"></div>
+  </div>
+</div>
+
+<!-- header -->
+<div class="full-box">
+  <div id="page-explanation">
+    <p>
+      <b>Paragraph:</b> Entry New Topic.
+    </p>
+  </div>
+</div>
+
+<!-- content -->
+<div class="full-box">
+  <form action="#" th:action="@{/words/paragraph/register}" th:object="${paragraphEntryForm}"
+        method="post">
+    <p>
+      <label class="control-label" for="title">Title:</label><br/>
+      <input type="text" id="title" size="60" value="" placeholder="" th:field="*{title}"/>
+    </p>
+    <p>
+      <label class="control-label" for="textArea">Text:</label><br/>
+      <textarea id="textArea" rows="8" cols="100" class="form-control"
+                placeholder="" th:field="*{text}"></textarea>
+    </p>
+    <p>
+      <label class="control-label" for="remarks">Remarks:</label><br/>
+      <input type="text" id="remarks" size="60" value="" placeholder="" th:field="*{remarks}"/>
+    </p>
+    <p>
+      <input type="submit" value="Register"/>
+      <input type="reset" value="Reset"/>
+    </p>
+  </form>
+</div>
+
+<!-- footer -->
+<div class="full-box">
+  <div th:include="components/miscellaneous :: copyright"></div>
+</div>
+</body>
+</html>
+

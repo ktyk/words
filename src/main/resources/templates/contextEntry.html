@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>context register</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<!-- navigation menu -->
+<div class="two-half-box">
+  <div class="left-half-box">
+    <div th:include="components/miscellaneous :: site"></div>
+  </div>
+  <div class="right-half-box">
+    <div th:include="components/miscellaneous :: menu"></div>
+  </div>
+</div>
+
+<!-- header -->
+<div class="full-box">
+  <div id="page-explanation">
+    <p>
+      <b>Context:</b> Entry New Topic.
+    </p>
+    <span class="confirmation" th:if="${exists}">Oops! That context already exists.</span>
+  </div>
+</div>
+
+<!-- content -->
+<div class="full-box">
+  <form action="#" th:action="@{/words/context/register}" th:object="${contextEntryForm}"
+        method="post">
+    <p>
+      <label class="control-label" for="parentName">Parent:</label>
+      <select id="parentName" name="parentName" th:field="*{parentName}">
+        <option value="">/</option>
+        <option th:each="context : ${contexts}" th:value="${context.name}"
+                th:selected="(${context.name} == *{name})" th:inline="text">
+          [[${context.currentPathName}]]
+        </option>
+      </select>
+    </p>
+    <p>
+      <label class="control-label" for="name">Name:</label><br/>
+      <input type="text" id="name" size="60" value="" placeholder="*required*" th:field="*{name}"/>
+      <span class="error-massage" th:errors="*{name}"></span>
+    </p>
+    <p>
+      <label class="control-label" for="explanation">Explanation:</label><br/>
+      <textarea id="explanation" rows="4" cols="100" class="form-control"
+                placeholder="" th:field="*{explanation}"></textarea>
+    </p>
+    <p>
+      <input type="submit" value="Register"/> <input type="reset" value="Reset"/>
+    </p>
+  </form>
+</div>
+
+<!-- footer -->
+<div class="full-box">
+  <div th:include="components/miscellaneous :: copyright"></div>
+</div>
+</body>
+</html>
+

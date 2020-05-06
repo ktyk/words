@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>term list</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+
+<body>
+<!-- navigation menu -->
+<div class="two-half-box">
+  <div class="left-half-box">
+    <div th:include="components/miscellaneous :: site"></div>
+  </div>
+  <div class="right-half-box">
+    <div th:include="components/miscellaneous :: menu"></div>
+  </div>
+</div>
+
+<!-- header -->
+<div class="full-box">
+  <div class="page-explanation">
+    <p>
+      <b>Term:</b> List of Entry Terms.
+    </p>
+  </div>
+</div>
+
+<!-- contents -->
+<div class="full-box">
+  <div class="text-search">
+    <form action="#" th:action="@{/words/term/search}" th:object="${textSearchForm}" method="post">
+      <input type="submit" value="Search"/>
+      <select id="contextId" name="contextId" th:field="*{contextId}">
+        <option value="">/</option>
+        <option th:each="context : ${contexts}" th:value="${context.id}"
+                th:selected="(${context.id} == *{contextId})" th:inline="text"
+                th:disabled="${browsing}">[[${context.currentPathName}]]
+        </option>
+      </select>
+      <input type="text" size="50" placeholder="" th:field="*{searching}"/>
+    </form>
+  </div>
+</div>
+<div class="full-box">
+  <div class="search-result-list ">
+    <table>
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>name</th>
+        <th>reading</th>
+        <th>explanation</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="term, iterStat : ${terms}">
+        <td><a href="dictionary.html"
+               th:href="@{/words/term/read/{id}(id=${term.id})}"
+               th:class="${iterStat.odd}? 'odd' : 'even'" th:text="${term.id}">id</a></td>
+        <td th:class="${iterStat.odd}? 'odd' : 'even'" th:text="${term.name}">name</td>
+        <td th:class="${iterStat.odd}? 'odd' : 'even'" th:text="${term.reading}">reading</td>
+        <td th:class="${iterStat.odd}? 'odd' : 'even'" th:text="${term.headOfExplanation}">
+          explanation
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- footer -->
+<div class="full-box">
+  <div th:include="components/miscellaneous :: copyright"></div>
+</div>
+
+</body>
+</html>

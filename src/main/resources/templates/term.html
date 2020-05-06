@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>term editing</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet" media="all" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<!-- navigation menu -->
+<div class="two-half-box">
+  <div class="left-half-box">
+    <div th:include="components/miscellaneous :: site"></div>
+  </div>
+  <div class="right-half-box">
+    <div th:include="components/miscellaneous :: menu"></div>
+  </div>
+</div>
+
+<!-- header -->
+<div class="full-box">
+  <div class="page-explanation">
+    <p>
+      <b>Term:</b> <span th:if="${browsing}">Browsing Term.(Read Only)</span>
+      <span th:if="${editing}">Rewriting Term.(Editable)</span>
+      <span class="confirmation"
+            th:if="${confirmation}">Delete, are you sure you want to do this?</span>
+    </p>
+  </div>
+</div>
+
+<!-- contents -->
+<div class="full-box">
+  <div class="browsing" th:if="${browsing}">
+    <form action="#" th:action="@{/words/term/edit/{id}(id=${term.id})}" th:object="${term}"
+          th:method="POST">
+      <div th:include="components/contents :: termContent"></div>
+      <button type="submit" name="edit">Edit</button>
+      <button type="submit" name="confirm">Remove</button>
+    </form>
+  </div>
+  <div class="browsing" th:if="${confirmation}">
+    <form action="#" th:action="@{/words/term/edit/{id}(id=${term.id})}" th:object="${term}"
+          th:method="POST">
+      <div th:include="components/contents :: termContent"></div>
+      <button type="submit" name="remove">Yes. I'm sure.</button>
+      <button type="submit" name="goback">No.</button>
+    </form>
+  </div>
+  <div class="editable" th:if="${editing}">
+    <form action="#" th:action="@{/words/term/update/{id}(id=${term.id})}" th:object="${term}"
+          th:method="POST">
+      <div th:include="components/contents :: termContent"></div>
+      <button type="submit" name="save">Save</button>
+      <button type="submit" name="cancel">Cancel</button>
+    </form>
+  </div>
+</div>
+
+<!-- footer -->
+<div class="full-box">
+  <div th:include="components/miscellaneous :: copyright"></div>
+</div>
+</body>
+</html>

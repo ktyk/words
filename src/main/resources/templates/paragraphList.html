@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>paragraph list</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+
+<body>
+<!-- navigation menu -->
+<div class="two-half-box">
+  <div class="left-half-box">
+    <div th:include="components/miscellaneous :: site"></div>
+  </div>
+  <div class="right-half-box">
+    <div th:include="components/miscellaneous :: menu"></div>
+  </div>
+</div>
+
+<!-- header -->
+<div class="full-box">
+  <div class="page-explanation">
+    <p>
+      <b>Paragraph:</b> List of Entry Paragraphs.
+    </p>
+  </div>
+</div>
+
+<!-- contents -->
+<div class="full-box">
+  <div class="text-search">
+    <p></p>
+    <form action="#" th:action="@{/words/paragraph/search}" th:object="${textSearchForm}"
+          method="post">
+      <input type="submit" value="Search"/>
+      <input type="text" size="60" placeholder="" th:field="*{searching}"/>
+    </form>
+  </div>
+</div>
+<div class="full-box">
+  <div class="search-result-list">
+    <table>
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>title</th>
+        <th>text</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="paragraph, iterStat : ${paragraphs}">
+        <td><a href="paragraph.html"
+               th:href="@{/words/paragraph/read/{id}(id=${paragraph.id})}"
+               th:class="${iterStat.odd}? 'odd' : 'even'" th:text="${paragraph.id}">id</a></td>
+        <td th:class="${iterStat.odd}? 'odd' : 'even'" th:text="${paragraph.title}">title</td>
+        <td th:class="${iterStat.odd}? 'odd' : 'even'" th:text="${paragraph.headOfText}">text</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- footer -->
+<div class="full-box">
+  <div th:include="components/miscellaneous :: copyright"></div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>word list</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}"/>
+</head>
+
+<body>
+<!-- navigation menu -->
+<div class="two-half-box">
+  <div class="left-half-box">
+    <div th:include="components/miscellaneous :: site"></div>
+  </div>
+  <div class="right-half-box">
+    <div th:include="components/miscellaneous :: menu"></div>
+  </div>
+</div>
+
+<!-- header -->
+<div class="full-box">
+  <div class="page-explanation">
+    <p>
+      <b>Word:</b> List of Entry Word.
+    </p>
+  </div>
+</div>
+
+<!-- contents -->
+<div class="full-box">
+  <div class="text-search">
+    <form action="#" th:action="@{/words/word/search}" th:object="${textSearchForm}" method="post">
+      <input type="submit" value="Search"/>
+      <select id="contextId" name="contextId" th:field="*{contextId}">
+        <option value="">/</option>
+        <option th:each="context : ${contexts}" th:value="${context.id}"
+                th:selected="(${context.id} == *{contextId})" th:inline="text"
+                th:disabled="${browsing}">[[${context.currentPathName}]]
+        </option>
+      </select>
+      <input type="text" size="50" placeholder="" th:field="*{searching}"/> |
+      <a href="wordEntry.html" th:href="@{/words/word/entry}" title="entry new word">Add Word</a>|
+    </form>
+  </div>
+</div>
+<div class="full-box">
+  <div class="search-result-list ">
+    <table>
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>notation</th>
+        <th>reading</th>
+        <th>conversion</th>
+        <th>abbreviation</th>
+        <th>note</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="word, iterStat : ${words}">
+        <td><a href="word.html"
+               th:href="@{/words/word/read/{id}(id=${word.id})}"
+               th:class="${iterStat.odd}? 'odd' : 'even'" th:text="${word.id}">id</a></td>
+        <td th:class="${iterStat.odd}? 'odd' : 'even'" th:text="${word.notation}">notation</td>
+        <td th:class="${iterStat.odd}? 'odd' : 'even'" th:text="${word.reading}">reading</td>
+        <td th:class="${iterStat.odd}? 'odd' : 'even'" th:text="${word.conversion}">conversion</td>
+        <td th:class="${iterStat.odd}? 'odd' : 'even'" th:text="${word.abbreviation}">abbreviation
+        </td>
+        <td th:class="${iterStat.odd}? 'odd' : 'even'" th:text="${word.note}">note</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- footer -->
+<div class="full-box">
+  <div th:include="components/miscellaneous :: copyright"></div>
+</div>
+
+</body>
+</html>
