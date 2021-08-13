@@ -4,6 +4,9 @@
 A Web Application For Registering Terms.  
 This Application Contains Japanese Notation.  
 
+![Top Page](/top_page.png) 
+
+
 ### Created From
 This Application Consists of The Following Elements.  
 * Spring Boot
@@ -14,4 +17,5 @@ This Application Consists of The Following Elements.
 * PostgreSQL
 * Lombok
 * No JavaScript
+
 
